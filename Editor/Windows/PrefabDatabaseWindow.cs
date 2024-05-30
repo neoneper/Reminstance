@@ -159,12 +159,12 @@ namespace GameCreator.Editor.Reminstance
 
             if (rememberComponent != null)
             {
-                if (string.IsNullOrEmpty(rememberComponent.prefabGUID))
+                if (string.IsNullOrEmpty(rememberComponent.PrefabGUID))
                 {
                     AssingRememberInstanceID(rememberComponent);
                 }
 
-                string guid = rememberComponent.prefabGUID;
+                string guid = rememberComponent.PrefabGUID;
 
 
                 if (!prefabDatabase.ContainsPrefabGUID(guid))
