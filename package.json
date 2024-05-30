@@ -4,16 +4,7 @@
   "displayName": "Reminstance",
   "description": "Reminstance or Rememeber Instance is a Game Creator 2 module, expand the Remember component functionality. It allow save and load Runtime Instances just using a component same Remember. This is the most easy wait to save and load prefab instances in Game Creator 2.",
   "unity": "2019.1",
-  "unityRelease": "0b5",
-  "documentationUrl": "https://github.com/neoneper/Reminstance",
-  "changelogUrl": "https://github.com/neoneper/Reminstance",
-  "licensesUrl": "https://github.com/neoneper/Reminstance",
-   "keywords": [
-    "GameCreator2",
-    "RememberInstances",
-    "SaveInstances"
-  ],
-  "author": {
+   "author": {
     "name": "Doublehit Games",
     "email": "doublehitgames@gmail.com",
     "url": "https://www.doublehitgames.com"
