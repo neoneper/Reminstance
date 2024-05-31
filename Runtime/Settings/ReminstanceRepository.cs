@@ -11,11 +11,21 @@ namespace GameCreator.Runtime.Reminstance
     [Serializable]
     public class ReminstanceRepository : TRepository<ReminstanceRepository>
     {
-        public const string REPOSITORY_ID = "core.reminstance"; 
+        public const string REPOSITORY_ID = "reminstance.general";
         // REPOSITORY PROPERTIES: -----------------------------------------------------------------
         public override string RepositoryID => REPOSITORY_ID;
-        [SerializeField] private PrefabDatabase database;
-        public PrefabDatabase Database => database;
+
+        [SerializeField] private PrefabsCatalogue m_catalogue = new PrefabsCatalogue();
+        public PrefabsCatalogue Prefabs => this.m_catalogue;
+
+        // EDITOR ENTER PLAYMODE: -----------------------------------------------------------------
+
+#if UNITY_EDITOR
+
+        [InitializeOnEnterPlayMode]
+        public static void InitializeOnEnterPlayMode() => Instance = null;
+
+#endif
 
     }
 }

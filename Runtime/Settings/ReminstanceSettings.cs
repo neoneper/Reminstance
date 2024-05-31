@@ -7,5 +7,6 @@ namespace GameCreator.Runtime.Reminstance
     {
         public override IIcon Icon => new IconComputer(ColorTheme.Type.TextLight);
         public override string Name => "Reminstance";
+        
     }
 }

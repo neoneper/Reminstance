@@ -58,8 +58,6 @@ namespace GameCreator.Runtime.Common
             SaveLoadManager.Unsubscribe(this);
         }
 
-
-
         public string SaveID => this.m_SaveUniqueID.Get.String;
         public bool IsShared => false;
 
@@ -94,7 +92,19 @@ namespace GameCreator.Runtime.Common
             m_SaveUniqueID = new SaveUniqueID(true, rememberID);
             _ = SaveLoadManager.Subscribe(this);
         }
-       
+        public void RefreshPrefabGUID()
+        {
+
+        }
+
+        public void SetupPrefabGUID()
+        {
+            if (string.IsNullOrEmpty(PrefabGUID))
+            {
+                m_prefabGUID = System.Guid.NewGuid().ToString();
+            }
+        }
+
         public enum EntryParentType
         {
             None,

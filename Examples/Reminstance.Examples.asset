@@ -51,11 +51,6 @@ MonoBehaviour:
         major: 1
         minor: 6
         patch: 12
-    - m_ID: Inventory.Items
-      m_MinVersion:
-        major: 1
-        minor: 2
-        patch: 12
     - m_ID: GameCreator.Characters
       m_MinVersion:
         major: 1

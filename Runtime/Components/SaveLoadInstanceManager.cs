@@ -14,7 +14,6 @@ namespace GameCreator.Runtime.Reminstance
         public event Action<RememberInstance> OnRememberInstanceLoadedAndInstantied;
 
         public const string FILENAME = "save_instances.json";
-        private PrefabDatabase m_PrefabDatabase;
         private List<RememberInstance.Entry> _cache_EntrysBeforeSceneLoad = new List<RememberInstance.Entry>();
         private Dictionary<string, RememberInstance> _cache_InstancesBeforeSceneLoad = new Dictionary<string, RememberInstance>();
 
@@ -27,7 +26,7 @@ namespace GameCreator.Runtime.Reminstance
         protected override void OnCreate()
         {
             base.OnCreate();
-            this.m_PrefabDatabase = ReminstanceRepository.Get.Database;
+         
             SceneManager.sceneLoaded += OnSceneLoaded;
             SaveLoadManager.Instance.EventBeforeSave += OnSaving;
             SaveLoadManager.Instance.EventBeforeLoad += OnLoading;
@@ -116,15 +115,15 @@ namespace GameCreator.Runtime.Reminstance
         private void ProcessOnLoaded()
         {
             if (!SaveLoadManager.Instance.IsLoading) { return; }
-            if (m_PrefabDatabase == null) { return; }
+            if (ReminstanceRepository.Get.Prefabs.List.Count() == 0) { return; }
 
             //1: First we instantiating the prefabs
             foreach (var entry in _cache_EntrysBeforeSceneLoad)
             {
-                PrefabDatabase.PrefabInfo info;
-                if (m_PrefabDatabase.TryGetPrefabInfo(entry.PrefabGUID, out info))
+               
+                if (ReminstanceRepository.Get.Prefabs.TryGet(entry.PrefabGUID, out GameObject prefab))
                 {
-                    GameObject go = Instantiate(info.prefab);
+                    GameObject go = Instantiate(prefab);
                     RememberInstance rememberInstance = go.GetComponent<RememberInstance>();
                     rememberInstance.SetupLoadedInstance(entry.RememberID);
                     _cache_InstancesBeforeSceneLoad[entry.RememberID] = rememberInstance;
