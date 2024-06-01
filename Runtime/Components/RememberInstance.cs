@@ -12,6 +12,7 @@ namespace GameCreator.Runtime.Common
     [DisallowMultipleComponent]
     public class RememberInstance : MonoBehaviour, IGameSave
     {
+
         [SerializeField]
         private SaveUniqueID m_SaveUniqueID = new SaveUniqueID(true, "undefinded-prefab-instance-id");
         [SerializeField]
@@ -92,10 +93,7 @@ namespace GameCreator.Runtime.Common
             m_SaveUniqueID = new SaveUniqueID(true, rememberID);
             _ = SaveLoadManager.Subscribe(this);
         }
-        public void RefreshPrefabGUID()
-        {
-
-        }
+       
 
         public void SetupPrefabGUID()
         {

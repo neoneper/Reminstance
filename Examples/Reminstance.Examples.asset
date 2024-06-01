@@ -44,7 +44,7 @@ MonoBehaviour:
       major: 0
       minor: 0
       patch: 1
-    m_Complexity: 1
+    m_Complexity: 0
     m_Dependencies:
     - m_ID: GameCreator.Blockout
       m_MinVersion:

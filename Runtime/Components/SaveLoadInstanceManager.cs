@@ -11,7 +11,36 @@ namespace GameCreator.Runtime.Reminstance
     [DefaultExecutionOrder(ApplicationManager.EXECUTION_ORDER_FIRST_EARLIER)]
     public class SaveLoadInstanceManager : Singleton<SaveLoadInstanceManager>
     {
-        public event Action<RememberInstance> OnRememberInstanceLoadedAndInstantied;
+
+#if UNITY_EDITOR
+
+        [UnityEditor.InitializeOnEnterPlayMode]
+        private static void InitializeOnEnterPlayMode()
+        {
+            OnRememberDroped = null;
+            OnRememberInstantied = null;
+            OnRememberLoaded = null;
+            LastRememberInstantiated = null;
+        }
+
+#endif
+
+
+        public static RememberInstance LastRememberInstantiated { get; private set; }
+
+        /// <summary>
+        /// Chamado quando um novo rememberInstance é dropado apartir de qualquer chamada de instancia de ITEM, tal como drop do mochile ou uma instancia proveninente de algum item de inventario
+        /// </summary>
+        public static event Action<RememberInstance> OnRememberDroped;
+
+        /// <summary>
+        /// Chamado quando um novo rememberInstance é instanciado na cena
+        /// </summary>
+        public static event Action<RememberInstance> OnRememberInstantied;
+        /// <summary>
+        /// Chamado quando um remember é carregado e instanciado na cena pos o carregamento ter sido finalizado
+        /// </summary>
+        public static event Action<RememberInstance> OnRememberLoaded;
 
         public const string FILENAME = "save_instances.json";
         private List<RememberInstance.Entry> _cache_EntrysBeforeSceneLoad = new List<RememberInstance.Entry>();
@@ -26,7 +55,7 @@ namespace GameCreator.Runtime.Reminstance
         protected override void OnCreate()
         {
             base.OnCreate();
-         
+
             SceneManager.sceneLoaded += OnSceneLoaded;
             SaveLoadManager.Instance.EventBeforeSave += OnSaving;
             SaveLoadManager.Instance.EventBeforeLoad += OnLoading;
@@ -34,6 +63,14 @@ namespace GameCreator.Runtime.Reminstance
             Item.EventInstantiate += OnItemInstantiate;
 
         }
+        private void OnDestroy()
+        {
+            OnRememberDroped = null;
+            OnRememberInstantied = null;
+            OnRememberLoaded = null;
+            LastRememberInstantiated = null;
+        }
+
         private void OnSaving(int slotIndex)
         {
             string path = System.IO.Path.Combine(Application.persistentDataPath, "slot" + slotIndex + "_" + FILENAME);
@@ -71,15 +108,14 @@ namespace GameCreator.Runtime.Reminstance
             GameObject instantiedItem = Item.LastItemInstanceInstantiated;
             if (!instantiedItem.TryGetComponent<RememberInstance>(out RememberInstance remembderInstance)) { return; }
             remembderInstance.SetupNewInstance();
-
-            OnRememberInstanceLoadedAndInstantied?.Invoke(remembderInstance);
+            LastRememberInstantiated = remembderInstance;
+            OnRememberDroped?.Invoke(remembderInstance);
         }
 
         private void OnSceneLoaded(Scene arg0, UnityEngine.SceneManagement.LoadSceneMode arg1)
         {
             ProcessOnLoaded();
         }
-
         private void ProcessLoading(int slotIndex)
         {
 
@@ -120,7 +156,7 @@ namespace GameCreator.Runtime.Reminstance
             //1: First we instantiating the prefabs
             foreach (var entry in _cache_EntrysBeforeSceneLoad)
             {
-               
+
                 if (ReminstanceRepository.Get.Prefabs.TryGet(entry.PrefabGUID, out GameObject prefab))
                 {
                     GameObject go = Instantiate(prefab);
@@ -175,12 +211,23 @@ namespace GameCreator.Runtime.Reminstance
 
             foreach (var entry in _cache_InstancesBeforeSceneLoad.Values)
             {
-                OnRememberInstanceLoadedAndInstantied?.Invoke(entry);
+                LastRememberInstantiated = entry;
+                OnRememberLoaded?.Invoke(entry);
             }
             _cache_EntrysBeforeSceneLoad.Clear();
             _cache_InstancesBeforeSceneLoad.Clear();
         }
 
+        // PUBLICS -----------------------------------------
 
+        public RememberInstance InstantiatePrefab(RememberInstance _rememberPrefab, Vector3 _position, Quaternion _rotation, Transform _parent)
+        {
+            RememberInstance instance = Instantiate(_rememberPrefab, _position, _rotation, _parent);
+            instance.SetupNewInstance();
+            LastRememberInstantiated = instance;
+            OnRememberInstantied?.Invoke(instance);
+
+            return instance;
+        }
     }
 }
