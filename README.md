@@ -1,8 +1,15 @@
 # Reminstance
 Reminstance or Rememeber Instance is a Game Creator 2 module, expand the Remember component functionality. It allow save and load Runtime Instances just using a component same Remember. This is the most easy wait to save and load prefab instances in Game Creator 2 
 
-| At the moment the instances are only being used for prefabs of items that are dropped from the inventory.
-| I'm working to include instantiation instructions from any action.
+ - Save instances in specific slot: Will create a specific json file for each saved slot. The json contains all instantiated scenes.
+ - Load instances from specific slot
+ - Delete Instance Slot: Delete the slot json file along with data information
+ - Instantiation instructions
+ - On Instance Triggers: Trigger by instantiation types
+ - GameCreator Settings -> Reminstance: Allows the user to manage all prefabs that can be instantiated at runtime for persistence
+ - GameCreator Installation - Reminiscence Samples: Allows the user to install or uninstall Game Creator Manager samples
+ - RememberInsance component: Like the native Remember component, but this component allows instance to save and load the game.
+ - Nested instantiations: allows you to save and load instances of the correct hierarchy
 
 # Download Unity Packages:
 You can download Reminstance versions in unity package format, direct from this link:
