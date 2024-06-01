@@ -29,7 +29,11 @@ Join DoubleHitGames at: https://discord.gg/muMDQP6qQB
 - 2: After install, the example can be found in Plugins -> Game Creator -> Installs -> Reminstance -> Reminstace.Examples@0.0...
 
 # How to use?:
-1 - Add [RememberInstance] Component in any prefabs that you are using in drop action from bags.
-"The Remember Instance Component must replace the Remember component, so be sure not to keep both in the same object!"
-2 - You can see all prefabs using to instance in Game Creator tool -> Settings -> Reminstance.
-"You can click in Refresh button to guarantee that all your prefabs will configured"
+1 - Add [RememberInstance] Component in any prefabs that you are using to save instatiation.
+- | You can see all prefabs using to instance in Game Creator tool -> Settings -> Reminstance.
+2 - For intenventory item, just make sure that their items are using [RememberInstance] instead Remember [Component]. So just drop items from bag or to use inventory instructions to instantiate some item in the world
+3 - For any other instance you can to use the Reminstance->Instantiate instruction to instantiate any RememberInstance prefab in the world. 
+- | Make sure that your prefabs are using RememberInstance instead Remember component.
+4 - Read instantiation, loaded and droped events from Reminstance Trigger.
+  
+
