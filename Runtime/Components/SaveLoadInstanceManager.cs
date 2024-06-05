@@ -212,7 +212,7 @@ namespace GameCreator.Runtime.Reminstance
             foreach (var entry in _cache_InstancesBeforeSceneLoad.Values)
             {
                 LastRememberInstantiated = entry;
-                OnRememberLoaded?.Invoke(entry);
+                OnRememberLoaded?.Invoke(LastRememberInstantiated);
             }
             _cache_EntrysBeforeSceneLoad.Clear();
             _cache_InstancesBeforeSceneLoad.Clear();

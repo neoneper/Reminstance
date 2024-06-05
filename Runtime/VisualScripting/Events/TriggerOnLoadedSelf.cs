@@ -6,46 +6,36 @@ using UnityEngine;
 
 namespace GameCreator.Runtime.Reminstance
 {
-    [Title("On Instantiate Self")]
-    [Category("Reminstance/On Instantiate Self")]
-    [Description("This trigger will Executed when i instantied in the world")]
+    [Title("On Loaded Self")]
+    [Category("Reminstance/On Loaded Self")]
+    [Description("This trigger will Executed when i loaded and instantied in the world. Itens and Objects will be trigged")]
 
     [Image(typeof(IconCubeSolid), ColorTheme.Type.Blue, typeof(OverlayArrowDown))]
-    [Keywords("Reminstance", "Remember", "Instance", "Instantied")]
+    [Keywords("Reminstance", "Remember", "Instance", "Instantied", "Loaded", "Inventory", "Item")]
 
     [Serializable]
-    public class TriggerOnInstatiateSelf : VisualScripting.Event
+    public class TriggerOnLoadedSelf : VisualScripting.Event
     {
         [SerializeField] private PropertyGetGameObject m_Me = GetGameObjectSelf.Create();
-        [SerializeField] private bool m_allowOnLoaded = true;
+
         bool _instantied = false;
 
         protected override void OnAwake(Trigger trigger)
         {
             base.OnAwake(trigger);
-            SaveLoadInstanceManager.OnRememberInstantied -= OnInstantied;
-            SaveLoadInstanceManager.OnRememberInstantied += OnInstantied;
-
-            if (m_allowOnLoaded)
-            {
-                SaveLoadInstanceManager.OnRememberLoaded -= OnInstantied;
-                SaveLoadInstanceManager.OnRememberLoaded += OnInstantied;
-            }
-        }
-        protected override void OnDestroy(Trigger trigger)
-        {
-            SaveLoadInstanceManager.OnRememberInstantied -= OnInstantied;
             SaveLoadInstanceManager.OnRememberLoaded -= OnInstantied;
-            base.OnDestroy(trigger);
+            SaveLoadInstanceManager.OnRememberLoaded += OnInstantied;
         }
-
         protected override void OnDisable(Trigger trigger)
         {
-            SaveLoadInstanceManager.OnRememberInstantied -= OnInstantied;
             SaveLoadInstanceManager.OnRememberLoaded -= OnInstantied;
             base.OnDisable(trigger);
         }
-
+        protected override void OnDestroy(Trigger trigger)
+        {
+            SaveLoadInstanceManager.OnRememberLoaded -= OnInstantied;
+            base.OnDestroy(trigger);
+        }
         private void OnInstantied(RememberInstance instance)
         {
             if (_instantied) { return; }
@@ -54,11 +44,11 @@ namespace GameCreator.Runtime.Reminstance
             if (this == null) { return; }
             if (this.m_Me == null) { return; }
             if (this.m_Me.Get(new Args(m_Trigger)) != instance.gameObject) { return; }
-          
+           
             _instantied = true;
-            SaveLoadInstanceManager.OnRememberInstantied -= OnInstantied;
             SaveLoadInstanceManager.OnRememberLoaded -= OnInstantied;
             _ = this.m_Trigger.Execute();
+          
 
         }
 
