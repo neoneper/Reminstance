@@ -25,8 +25,6 @@ Join DoubleHitGames at: https://discord.gg/muMDQP6qQB
 
 ### How to Install Samples?:
 - 1: In unity tools bar go to: `Game Creator -> Install -> Reminstance -> Examples -> Install`
-*"After installing the sample pack from the Game Creator installer, a known bug causes the installed icon to not appear in the menu. Even though the example is installed."* 
-
 - 2: After install, the example can be found in `Asstes\Plugins\Game Creator\Installs\Reminstance\Reminstace.Examples@0.0...`
 
 # How to use?:
