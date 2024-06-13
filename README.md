@@ -24,6 +24,10 @@ Join DoubleHitGames at: https://discord.gg/muMDQP6qQB
 - 2: Extract the package in Unity project and done!
 
 ### How to Install Samples?:
+- 0: Before installing the samples, install the following HUBS in your project:
+> Drop All Items From Bag: https://gamecreator.io/hub/7HSonXldTXAtmiNlkTVD
+> Ignore Character collision: https://gamecreator.io/hub/NScED5eZR20bEf45l07C
+> Loop for instructions: https://gamecreator.io/hub/yxnRPOS5JNA866VVoTwV
 - 1: In unity tools bar go to: `Game Creator -> Install -> Reminstance -> Examples -> Install`
 - 2: After install, the example can be found in `Asstes\Plugins\Game Creator\Installs\Reminstance\Reminstace.Examples@0.0...`
 
