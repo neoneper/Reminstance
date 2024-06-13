@@ -2,8 +2,9 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using System;
+using GameCreator.Runtime.Common;
 
-namespace GameCreator.Runtime.Common
+namespace GameCreator.Runtime.Reminstance
 {
 
     [AddComponentMenu("Game Creator/Save & Load/Remember Instance")]
